@@ -1,4 +1,4 @@
-Starting a minikube cluster locally
+# Starting a minikube cluster locally
 
 Ref: https://kubernetes.io/docs/tutorials/
 
@@ -7,7 +7,7 @@ Pre requisite:
 
 Steps:
 1. Run `minikube start` to start the cluster.
-2. Run `kubectl version` to check verify that the command is working.
+2. Run `kubectl version` to verify that cluster is up and running.
 3. Run `kubectl cluster-info` to view cluster details.
     >Kubernetes control plane is running at https://127.0.0.1:54229
 
@@ -15,7 +15,7 @@ Steps:
 
 4. Run `kubectl get nodes` -> Show all nodes in the cluster. Locally you should have one node that runs control plane and the master cluster.
 
-5. Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it. To do so, you create a Kubernetes Deployment configuration. The Deployment instructs Kubernetes how to create and update instances of your application. Once you've created a Deployment, the Kubernetes control plane schedules the application instances included in that Deployment to run on individual Nodes in the cluster.
+5. Once you have a running Kubernetes cluster, you can deploy containerized applications on top of it. To do so, you create a Kubernetes Deployment configuration. The Deployment instructs Kubernetes how to create and update instances of your application. Once you've created a Deployment, the Kubernetes control plane schedules the application instances included in that Deployment to run on individual Nodes in the cluster.
 
 6. Run this command to create a deployment for the sample app.
 
@@ -41,9 +41,9 @@ Steps:
 
          `curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME`
 
-        Example: `curl http://localhost:8001/api/v1/namespaces/default/pods/    kubernetes-bootcamp-57978f5f5d-tf8qc`
+        Example: `curl http://localhost:8001/api/v1/namespaces/default/pods/kubernetes-bootcamp-57978f5f5d-tf8qc`
 
-10. To view what containers are inside that Pod and what images are used to build those containers we run the describe pods command:
+10. To view what containers are inside that Pod and what images are used to build those containers, we run the `describe pods` command:
 
     `kubectl describe pods`
 
@@ -53,10 +53,10 @@ Steps:
 
 12. We can execute commands directly on the container once the Pod is up and running. For this, we use the `exec` command:
 
-    - Show env variables in a pods - 
+    - Show env variables in a pod.
     
         `kubectl exec $POD_NAME -- env`
 
-    - Run bash in a pod with interactive terminal, notice the similarity with the same Docker command that runs bash - 
+    - Run bash in a pod with interactive terminal, notice the similarity with the same Docker command that runs bash.
        
         `kubectl exec -it $PODS_NAME bash`
