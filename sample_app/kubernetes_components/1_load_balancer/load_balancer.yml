@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-rest-app # This is the name that will be registered with the CoreDNS
+  labels:
+    app: sample-rest-app
+spec:
+  selector:
+    # These are the labels for the app that the load balancer will route the requests to, any app that matches the name and tier will get the requests on port 80. 
+    # These labels will be defined in the app config.
+    app: rest-app
+    tier: frontend
+  ports:
+    - port: 80
+  type: LoadBalancer # This will provision a cloud native Load balancer in the cloud provider like AWS and GCP.

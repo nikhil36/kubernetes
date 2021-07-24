@@ -1,0 +1,17 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-sc
+provisioner: k8s.io/minikube-hostpath
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-sc-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: local-sc  # Using the storage class name here to provisioning.
+  resources:
+    requests:
+      storage: 0.1Gi 
