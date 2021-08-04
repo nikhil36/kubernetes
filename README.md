@@ -52,3 +52,14 @@ The major groups of APIs are:
     3. `authorization` - contains resources for role and RBAC(role based access control).
     4. `storage` - contains resources for pv(persistent volume) and pvc(persistent volume claim).
 ref: https://kubernetes.io/docs/reference/glossary/?fundamental=true
+
+### What to learn next:
+
+1. DaemonSet
+2. StatefulSet
+3. Job
+4. CronJob
+5. PodSecurityPolicy
+6. Pod resource requests and limits
+7. ResourceQuota
+8. CustomResourceDefinition

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: prod-redis
+  name: prod-redis
+spec:
+  selector:
+    matchLabels:
+      run: prod-redis
+  replicas: 3
+  minReadySeconds: 300 # Wait for 5 mins before each update in the cluster, here on update the total time to update the full cluster to a new version of the pod will be 15 mins.
+  strategy:
+    rollingUpdate:
+      maxSurge: 1 # While updating, we can surge max 1 pod from the desired state
+      maxUnavailable: 0  # while updating, how many pods can be go below the desired state, 0 means we should never go below the desired state.
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: prod-redis
+    spec:
+      containers:
+      - image: redis:4.0
+        name: redis

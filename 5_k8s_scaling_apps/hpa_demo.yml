@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-ns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demo-ns
+  name: demo-lb
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: demo-stress
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo-ns
+  labels:
+    app: demo-stress
+  name: demo-web
+spec:
+  selector:
+    matchLabels:
+      app: demo-stress
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: demo-stress
+    spec:
+      containers:
+      - image: k8s.gcr.io/hpa-example
+        name: stresser
+        ports:
+          - containerPort: 80
+        resources:
+          requests:
+            cpu: 0.2
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: demo-hpa
+  namespace: demo-ns
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo-web
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
